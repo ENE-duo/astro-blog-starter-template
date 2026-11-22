@@ -48,7 +48,6 @@ main {
 	width: 600px;
 	max-width: calc(100% - 2em);
 	margin: auto;
-	margin-left: max(2em, 20vw);
 	padding: 2.4rem 1em 0;
 }
 h1,
