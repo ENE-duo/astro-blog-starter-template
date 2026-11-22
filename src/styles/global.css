@@ -40,14 +40,14 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: #2c2c2c;
-	font-size: 17px;
+	font-size: 22px;
 	line-height: 1.8;
 }
 main {
-	width: 40rem;
+	width: 46rem;
 	max-width: calc(100% - 2em);
 	margin: auto;
-	padding: 2rem 1em 0;
+	padding: 2.4rem 1em 0;
 }
 h1,
 h2,
@@ -129,7 +129,7 @@ hr {
 }
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 20px;
 	}
 	main {
 		padding: 1em;

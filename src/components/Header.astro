@@ -4,7 +4,7 @@ import HeaderLink from "./HeaderLink.astro";
 
 <header>
 	<a class="identity" href="/">
-		<img src="/avatar.jpg" alt="" width="64" height="64" />
+		<img src="/avatar.jpg" alt="" width="96" height="96" />
 		<span>
 			<strong>dwoduo</strong>
 			<small>扎根，发芽，成长</small>
@@ -18,9 +18,9 @@ import HeaderLink from "./HeaderLink.astro";
 
 <style>
 	header {
-		width: 40rem;
+		width: 46rem;
 		max-width: calc(100% - 2em);
-		margin: 4.5rem auto 0;
+		margin: 30vh auto 0;
 		padding: 0 1em;
 		background: transparent;
 		box-shadow: none;
@@ -28,13 +28,13 @@ import HeaderLink from "./HeaderLink.astro";
 	.identity {
 		display: flex;
 		align-items: center;
-		gap: 0.8rem;
+		gap: 1.05rem;
 		color: inherit;
 		text-decoration: none;
 	}
 	.identity img {
-		width: 64px;
-		height: 64px;
+		width: 96px;
+		height: 96px;
 		border-radius: 50%;
 		object-fit: cover;
 		object-position: center 18%;
@@ -44,20 +44,20 @@ import HeaderLink from "./HeaderLink.astro";
 		display: block;
 	}
 	.identity strong {
-		font-size: 1rem;
+		font-size: 1.45rem;
 		font-weight: 650;
 		line-height: 1.3;
 	}
 	.identity small {
-		margin-top: 0.1rem;
+		margin-top: 0.2rem;
 		color: #8d8d8d;
-		font-size: 0.92rem;
+		font-size: 1.15rem;
 		line-height: 1.4;
 	}
 	nav {
 		display: flex;
-		gap: 1.15rem;
-		margin-top: 1.35rem;
+		gap: 1.6rem;
+		margin-top: 1.8rem;
 	}
 	nav :global(a) {
 		padding: 0;
