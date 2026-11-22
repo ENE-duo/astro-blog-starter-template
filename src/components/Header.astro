@@ -1,5 +1,4 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header>
@@ -7,13 +6,9 @@ import HeaderLink from "./HeaderLink.astro";
 		<img src="/avatar.jpg" alt="" width="96" height="96" />
 		<span>
 			<strong>dwoduo</strong>
-			<small>扎根，发芽，成长</small>
+			<small>Take root,sprout,and grow</small>
 		</span>
 	</a>
-	<nav>
-		<HeaderLink href="/blog">blog</HeaderLink>
-		<HeaderLink href="/about">about</HeaderLink>
-	</nav>
 </header>
 
 <style>
@@ -53,17 +48,5 @@ import HeaderLink from "./HeaderLink.astro";
 		color: #8d8d8d;
 		font-size: 1.15rem;
 		line-height: 1.4;
-	}
-	nav {
-		display: flex;
-		gap: 1.6rem;
-		margin-top: 1.8rem;
-	}
-	nav :global(a) {
-		padding: 0;
-		color: #2c2c2c;
-		border-bottom: 0;
-		text-decoration: underline;
-		text-underline-offset: 0.2em;
 	}
 </style>
