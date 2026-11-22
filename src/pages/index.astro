@@ -12,10 +12,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 	</head>
 	<body>
 		<Header />
-		<main>
-			<p>这里记下正在长出来的东西。</p>
-			<p>项目、路上见过的地方，还有一些碎碎念，都会慢慢放在这里。</p>
+		<main class="bio">
+			<p>Hi，我是 dwoduo，2005 年生。一个在代码里种树的人。</p>
+			<p class="role">嵌入式 AI 算法 / 端侧性能优化</p>
+			<p>白天，把模型塞进小小的端侧；闲暇，把日子揉进几行代码。</p>
+			<p>心里有很多还没成型的念头，和一个模糊的梦。它们像种子一样，正埋在土里。</p>
+			<p>我会把做过的项目、走过的路，还有一些碎碎念，一点点搬到这里，然后一边记录，一边等它们——</p>
+			<p class="motto">扎根，发芽，野蛮生长。</p>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.bio p {
+		line-height: 1.8;
+		color: #333;
+		margin-bottom: 1.2em;
+	}
+	.role {
+		color: #888;
+		font-size: 0.85em;
+		letter-spacing: 1px;
+	}
+	.motto {
+		margin-top: 30px;
+		color: #2c2c2c;
+		font-size: 1.3em;
+		font-weight: 700;
+		letter-spacing: 2px;
+	}
+</style>
