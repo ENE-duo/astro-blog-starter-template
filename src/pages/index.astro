@@ -16,13 +16,23 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 			<p>白天，把模型塞进小小的端侧；闲暇，把日子揉进几行代码.</p>
 			<p>心里有很多还没成型的念头，和一个模糊的梦. 它们像种子一样，正埋在土里.</p>
 			<p>我会把做过的项目、走过的路，还有一些碎碎念，一点点搬到这里，然后一边记录，一边等它们野蛮生长.</p>
-			<p class="motto">
-				{
-					ZONES.map((zone) => (
-						<a class={`${zone.className} zone-link`} href={`/${zone.slug}`} aria-describedby={`tip-${zone.slug}`}>{zone.label}<span class="tip" id={`tip-${zone.slug}`} role="tooltip" hidden>{zone.tip}</span></a>
-					))
-				}
-			</p>
+			<div class="motto-wrap">
+				<p class="motto">
+					{
+						ZONES.map((zone) => (
+							<button type="button" class={`${zone.className} zone-link`} data-slug={zone.slug} data-tip={zone.tip} aria-expanded="false" aria-controls="zone-box">{zone.label}</button>
+						))
+					}
+				</p>
+				<div class="zone-box" id="zone-box">
+					<div class="zone-box-clip">
+						<div class="zone-box-panel">
+							<p class="zone-box-line"></p>
+							<a class="zone-box-enter" href="/root/">进入</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 	</body>
 </html>
@@ -46,8 +56,10 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 		font-size: 16px;
 		line-height: 1.7;
 	}
-	.bio p.motto {
+	.motto-wrap {
 		position: relative;
+	}
+	.bio p.motto {
 		margin-top: 28px;
 		margin-bottom: 0;
 		font-size: 22px;
@@ -64,112 +76,145 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 	.bio p.motto .motto-grow {
 		color: #3d9ad9;
 	}
-	.bio p.motto a.zone-link {
-		text-decoration: none;
+	.bio p.motto button.zone-link {
+		padding: 0;
+		border: 0;
+		background: none;
+		font: inherit;
+		letter-spacing: inherit;
+		cursor: pointer;
 		touch-action: manipulation;
 	}
-	.tip {
+	.zone-box {
 		position: absolute;
 		z-index: 2;
-		margin: 0;
-		padding: 0 4px;
+		top: 100%;
+		left: 0;
+		display: grid;
+		grid-template-rows: 0fr;
+		margin-top: 8px;
+		pointer-events: none;
+		transition: grid-template-rows 220ms ease, left 220ms ease;
+	}
+	.zone-box.is-open {
+		grid-template-rows: 1fr;
+		pointer-events: auto;
+	}
+	.zone-box-clip {
+		overflow: hidden;
+		min-height: 0;
+	}
+	.zone-box-panel {
+		width: max-content;
+		max-width: calc(100vw - 16px);
+		padding: 8px 10px;
+		border: 1px solid #e6e6e6;
 		background: #fff;
-		color: #8d8d8d;
+		transform: translateY(-8px);
+		opacity: 0;
+		transition: transform 220ms ease, opacity 220ms ease;
+	}
+	.zone-box.is-open .zone-box-panel {
+		transform: none;
+		opacity: 1;
+	}
+	.zone-box-line {
+		margin: 0 0 6px;
+		color: #555555;
 		font-size: 13px;
 		font-weight: 400;
 		letter-spacing: 0;
 		line-height: 1.4;
 		white-space: nowrap;
-		pointer-events: none;
+	}
+	.zone-box-enter {
+		font-size: 13px;
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.4;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.zone-box,
+		.zone-box-panel {
+			transition: none;
+		}
 	}
 </style>
 
 <script>
-	const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("a.zone-link"));
-	let pointerKind = "mouse";
+	const links = Array.from(document.querySelectorAll<HTMLButtonElement>("button.zone-link"));
+	const box = document.querySelector<HTMLElement>("#zone-box");
+	const line = box?.querySelector<HTMLElement>(".zone-box-line");
+	const enter = box?.querySelector<HTMLAnchorElement>(".zone-box-enter");
 
-	function tipOf(link: HTMLAnchorElement) {
-		const tip = link.querySelector<HTMLElement>(".tip");
-		if (!tip) throw new Error("missing tip");
-		return tip;
-	}
-
-	function hide(link: HTMLAnchorElement) {
-		link.classList.remove("is-open");
-		tipOf(link).hidden = true;
-	}
-
-	function place(link: HTMLAnchorElement) {
-		const tip = tipOf(link);
-		const motto = link.closest("p");
-		if (!motto) return;
+	function place(link: HTMLButtonElement) {
+		if (!box) return;
+		const panel = box.querySelector<HTMLElement>(".zone-box-panel");
+		const wrap = box.parentElement;
+		if (!panel || !wrap) return;
+		const width = panel.offsetWidth;
 		const host = link.getBoundingClientRect();
-		const box = motto.getBoundingClientRect();
-		const width = tip.offsetWidth;
+		const origin = wrap.getBoundingClientRect();
 		const margin = 8;
 		const viewW = document.documentElement.clientWidth;
 		const left = Math.min(
 			Math.max(host.left + (host.width - width) / 2, margin),
 			Math.max(margin, viewW - width - margin),
 		);
-		tip.style.left = `${left - box.left}px`;
-		tip.style.top = `${box.height + 10}px`;
+		box.style.left = `${left - origin.left}px`;
 	}
 
-	function show(link: HTMLAnchorElement) {
-		for (const item of links) hide(item);
-		const tip = tipOf(link);
-		tip.hidden = false;
-		link.classList.add("is-open");
+	function close() {
+		if (!box) return;
+		box.classList.remove("is-open");
+		box.inert = true;
+		for (const link of links) {
+			link.classList.remove("is-open");
+			link.setAttribute("aria-expanded", "false");
+		}
+	}
+
+	function open(link: HTMLButtonElement) {
+		if (!box || !line || !enter) return;
+		const slug = link.dataset.slug ?? "";
+		line.textContent = link.dataset.tip ?? "";
+		enter.href = `/${slug}/`;
+		const opening = !box.classList.contains("is-open");
+		if (opening) box.style.transition = "none";
 		place(link);
+		if (opening) {
+			box.getBoundingClientRect();
+			box.style.transition = "";
+		}
+		box.inert = false;
+		box.classList.add("is-open");
+		for (const item of links) {
+			const on = item === link;
+			item.classList.toggle("is-open", on);
+			item.setAttribute("aria-expanded", on ? "true" : "false");
+		}
 	}
-
-	document.addEventListener(
-		"pointerdown",
-		(event) => {
-			pointerKind = event.pointerType;
-			if (pointerKind !== "touch") return;
-			const target = event.target;
-			if (target instanceof Element && target.closest("a.zone-link")) return;
-			for (const link of links) hide(link);
-		},
-		true,
-	);
-
-	document.addEventListener(
-		"keydown",
-		() => {
-			pointerKind = "key";
-		},
-		true,
-	);
 
 	for (const link of links) {
-		link.addEventListener("pointerenter", (event) => {
-			if (event.pointerType === "touch") return;
-			show(link);
-		});
-		link.addEventListener("pointerleave", (event) => {
-			if (event.pointerType === "touch") return;
-			hide(link);
-		});
-		link.addEventListener("focus", () => {
-			if (pointerKind === "touch") return;
-			show(link);
-		});
-		link.addEventListener("blur", () => {
-			if (pointerKind === "touch") return;
-			hide(link);
-		});
-		link.addEventListener("click", (event) => {
-			if (pointerKind !== "touch" || link.classList.contains("is-open")) return;
-			event.preventDefault();
-			show(link);
+		link.addEventListener("click", () => {
+			if (link.classList.contains("is-open")) close();
+			else open(link);
 		});
 	}
 
+	document.addEventListener("pointerdown", (event) => {
+		const target = event.target;
+		if (!(target instanceof Element)) return;
+		if (target.closest("button.zone-link") || target.closest("#zone-box")) return;
+		close();
+	});
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") close();
+	});
+
 	window.addEventListener("resize", () => {
-		const open = links.find((link) => link.classList.contains("is-open"));
-		if (open) place(open);
+		const openLink = links.find((link) => link.classList.contains("is-open"));
+		if (openLink) place(openLink);
 	});
 </script>
