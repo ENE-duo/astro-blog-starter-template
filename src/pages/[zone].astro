@@ -20,7 +20,7 @@ const zone = ZONES.find((item) => item.slug === Astro.params.zone)!;
 		<main class="zone">
 			<h1 style={`color: ${zone.accent}`}>{zone.title}</h1>
 			<p class="zone-desc">{zone.blurb}</p>
-			<p class="zone-empty">还没有文章，先从<a href="/">首页</a>继续.</p>
+			<p class="zone-empty">还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.</p>
 		</main>
 	</body>
 </html>
@@ -32,18 +32,15 @@ const zone = ZONES.find((item) => item.slug === Astro.params.zone)!;
 		font-weight: 700;
 		letter-spacing: 1px;
 	}
-	.zone-desc,
-	.zone-empty,
-	.zone-empty a {
-		color: #000000;
-	}
 	.zone-desc {
 		margin: 0 0 1.25rem;
+		color: #555555;
 		font-size: 16px;
 		line-height: 1.7;
 	}
 	.zone-empty {
 		margin: 0;
+		color: #8d8d8d;
 		font-size: 15px;
 	}
 </style>
