@@ -44,13 +44,16 @@ const [root, sprout, grow] = ZONES;
 		const links = wrap.querySelectorAll(".zone-link");
 		let hideTimer = 0;
 
-		const show = (text: string) => {
+		const tones = ["zone-root", "zone-sprout", "zone-grow"];
+
+		const show = (link: Element) => {
 			if (!hint) return;
 			window.clearTimeout(hideTimer);
-			hint.textContent = text;
+			hint.textContent = link.getAttribute("data-tip") ?? "";
+			hint.classList.remove(...tones);
+			const tone = tones.find((name) => link.classList.contains(name));
+			if (tone) hint.classList.add(tone);
 			if (hint.classList.contains("is-visible")) return;
-			// Commit the collapsed start state before the class change, so the
-			// first hover transitions instead of painting the end state immediately.
 			void hint.offsetWidth;
 			hint.classList.add("is-visible");
 		};
@@ -63,10 +66,9 @@ const [root, sprout, grow] = ZONES;
 		};
 
 		links.forEach((link) => {
-			const tip = link.getAttribute("data-tip") ?? "";
-			link.addEventListener("mouseenter", () => show(tip));
+			link.addEventListener("mouseenter", () => show(link));
 			link.addEventListener("mouseleave", hide);
-			link.addEventListener("focus", () => show(tip));
+			link.addEventListener("focus", () => show(link));
 			link.addEventListener("blur", hide);
 		});
 	}
@@ -143,5 +145,14 @@ const [root, sprout, grow] = ZONES;
 		max-height: 2.4em;
 		opacity: 1;
 		transform: translateY(0);
+	}
+	.zone-hint.zone-root {
+		color: #5c3d2e;
+	}
+	.zone-hint.zone-sprout {
+		color: #6fa84a;
+	}
+	.zone-hint.zone-grow {
+		color: #3d9ad9;
 	}
 </style>
