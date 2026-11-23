@@ -1,7 +1,9 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
+
+const [root, sprout, grow] = ZONES;
 ---
 
 <!doctype html>
@@ -19,15 +21,15 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 			<p>然后一边记录，一边等它们扎根，发芽，野蛮生长.</p>
 			<div class="motto-wrap">
 				<p class="motto">
-					Take <a class="zone-link zone-root" href="/root/" data-tip="技术基础与原理" title="技术基础与原理">root</a>,<a
+					Take <a class="zone-link zone-root" href="/root/" data-tip={root.tip} title={root.tip}>root</a>,<a
 						class="zone-link zone-sprout"
 						href="/sprout/"
-						data-tip="工作项目与生活日常"
-						title="工作项目与生活日常">sprout</a>,and then <a
+						data-tip={sprout.tip}
+						title={sprout.tip}>sprout</a>,and then <a
 						class="zone-link zone-grow"
 						href="/grow/"
-						data-tip="探索实验"
-						title="探索实验">grow</a> wildly
+						data-tip={grow.tip}
+						title={grow.tip}>grow</a> wildly
 				</p>
 				<p class="zone-hint" aria-live="polite"></p>
 			</div>
