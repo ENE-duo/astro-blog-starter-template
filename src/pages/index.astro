@@ -47,6 +47,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 		line-height: 1.7;
 	}
 	.bio p.motto {
+		position: relative;
 		margin-top: 28px;
 		margin-bottom: 0;
 		font-size: 22px;
@@ -68,7 +69,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 		touch-action: manipulation;
 	}
 	.tip {
-		position: fixed;
+		position: absolute;
 		z-index: 2;
 		margin: 0;
 		padding: 0 4px;
@@ -100,17 +101,19 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 
 	function place(link: HTMLAnchorElement) {
 		const tip = tipOf(link);
+		const motto = link.closest("p");
+		if (!motto) return;
 		const host = link.getBoundingClientRect();
+		const box = motto.getBoundingClientRect();
 		const width = tip.offsetWidth;
 		const margin = 8;
 		const viewW = document.documentElement.clientWidth;
-		const lowest = Math.max(...links.map((item) => item.getBoundingClientRect().bottom));
 		const left = Math.min(
 			Math.max(host.left + (host.width - width) / 2, margin),
 			Math.max(margin, viewW - width - margin),
 		);
-		tip.style.left = `${left}px`;
-		tip.style.top = `${lowest + 10}px`;
+		tip.style.left = `${left - box.left}px`;
+		tip.style.top = `${box.height + 10}px`;
 	}
 
 	function show(link: HTMLAnchorElement) {
