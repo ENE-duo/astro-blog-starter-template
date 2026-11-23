@@ -1,0 +1,39 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import { ZONES } from "../consts";
+
+export function getStaticPaths() {
+	return ZONES.map((zone) => ({ params: { zone: zone.slug } }));
+}
+
+const name = ZONES.find((zone) => zone.slug === Astro.params.zone)?.tip ?? "";
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={name} description={name} />
+	</head>
+	<body>
+		<Header />
+		<main class="zone">
+			<h1>{name}</h1>
+			<p><a href="/">返回封面</a></p>
+		</main>
+	</body>
+</html>
+
+<style>
+	.zone h1 {
+		margin: 0 0 14px;
+		color: #333333;
+		font-size: 22px;
+		font-weight: 700;
+		letter-spacing: 2px;
+		line-height: 1.6;
+	}
+	.zone p {
+		margin: 0;
+	}
+</style>
