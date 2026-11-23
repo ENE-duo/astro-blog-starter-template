@@ -29,7 +29,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 						data-tip="探索实验"
 						title="探索实验">grow</a> wildly
 				</p>
-				<p class="zone-hint" aria-live="polite" hidden></p>
+				<p class="zone-hint" aria-live="polite"></p>
 			</div>
 		</main>
 	</body>
@@ -46,19 +46,18 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 			if (!hint) return;
 			window.clearTimeout(hideTimer);
 			hint.textContent = text;
-			hint.hidden = false;
-			requestAnimationFrame(() => hint.classList.add("is-visible"));
+			if (hint.classList.contains("is-visible")) return;
+			// Commit the collapsed start state before the class change, so the
+			// first hover transitions instead of painting the end state immediately.
+			void hint.offsetWidth;
+			hint.classList.add("is-visible");
 		};
 
 		const hide = () => {
 			if (!hint) return;
-			hint.classList.remove("is-visible");
 			hideTimer = window.setTimeout(() => {
-				if (!hint.classList.contains("is-visible")) {
-					hint.hidden = true;
-					hint.textContent = "";
-				}
-			}, 280);
+				hint.classList.remove("is-visible");
+			}, 80);
 		};
 
 		links.forEach((link) => {
@@ -120,20 +119,25 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 		color: #3d9ad9;
 	}
 	.zone-hint {
-		margin: 10px 0 0;
-		min-height: 1.6em;
+		margin: 0;
+		max-height: 0;
+		overflow: hidden;
 		color: #8d8d8d;
 		font-size: 15px;
 		font-weight: 400;
 		letter-spacing: 0.5px;
 		line-height: 1.6;
 		opacity: 0;
-		transform: translateY(-8px);
+		transform: translateY(-6px);
 		transition:
-			opacity 0.25s ease-out,
-			transform 0.25s ease-out;
+			max-height 0.32s ease,
+			margin-top 0.32s ease,
+			opacity 0.32s ease,
+			transform 0.32s ease;
 	}
 	.zone-hint.is-visible {
+		margin-top: 10px;
+		max-height: 2.4em;
 		opacity: 1;
 		transform: translateY(0);
 	}
