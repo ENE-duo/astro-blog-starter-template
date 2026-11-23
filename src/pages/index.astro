@@ -1,7 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
-import Meadow from "../components/Meadow.astro";
 import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 
 const [root, sprout, grow] = ZONES;
@@ -12,7 +11,7 @@ const [root, sprout, grow] = ZONES;
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="home">
+	<body>
 		<Header />
 		<main class="bio">
 			<p class="lead">Hi，我是 dwoduo. 一个在代码里种树的人.</p>
@@ -35,7 +34,6 @@ const [root, sprout, grow] = ZONES;
 				<p class="zone-hint" aria-live="polite"></p>
 			</div>
 		</main>
-		<Meadow />
 	</body>
 </html>
 
@@ -75,13 +73,6 @@ const [root, sprout, grow] = ZONES;
 </script>
 
 <style>
-	.home {
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		overflow-x: hidden;
-	}
 	.bio {
 		position: relative;
 		z-index: 1;
