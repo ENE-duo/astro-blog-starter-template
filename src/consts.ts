@@ -5,8 +5,8 @@ export const ZONES = [
 	{
 		slug: "root",
 		title: "Root",
-		tip: "[学术] 扎根的底层基石",
-		blurb: "[学术] 扎根的底层基石 — 数学、底层与 Lesson 笔记会落在这里.",
+		tip: "[学术] 向下扎根的底层基石",
+		blurb: "[学术] 向下扎根的底层基石 — 数学、底层与 Lesson 笔记会落在这里.",
 		accent: "#5c3d2e",
 	},
 	{
