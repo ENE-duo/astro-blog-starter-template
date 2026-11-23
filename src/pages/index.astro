@@ -1,7 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
 <!doctype html>
@@ -18,24 +18,57 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 			<p>我会把做过的项目、走过的路，还有一些碎碎念，一点点搬到这里，然后一边记录，一边等它们野蛮生长.</p>
 			<div class="motto-wrap">
 				<p class="motto">
-					{
-						ZONES.map((zone) => (
-							<button type="button" class={`${zone.className} zone-link`} data-slug={zone.slug} data-tip={zone.tip} aria-expanded="false" aria-controls="zone-box">{zone.label}</button>
-						))
-					}
+					Take <a class="zone-link zone-root" href="/root/" data-tip="技术基础与原理" title="技术基础与原理">root</a>,<a
+						class="zone-link zone-sprout"
+						href="/sprout/"
+						data-tip="工作项目与生活日常"
+						title="工作项目与生活日常">sprout</a>,and then <a
+						class="zone-link zone-grow"
+						href="/grow/"
+						data-tip="探索实验"
+						title="探索实验">grow</a> wildly
 				</p>
-				<div class="zone-box" id="zone-box">
-					<div class="zone-box-clip">
-						<div class="zone-box-panel">
-							<p class="zone-box-line"></p>
-							<a class="zone-box-enter" href="/root/">进入</a>
-						</div>
-					</div>
-				</div>
+				<p class="zone-hint" aria-live="polite" hidden></p>
 			</div>
 		</main>
 	</body>
 </html>
+
+<script>
+	const wrap = document.querySelector(".motto-wrap");
+	if (wrap) {
+		const hint = wrap.querySelector(".zone-hint");
+		const links = wrap.querySelectorAll(".zone-link");
+		let hideTimer = 0;
+
+		const show = (text: string) => {
+			if (!hint) return;
+			window.clearTimeout(hideTimer);
+			hint.textContent = text;
+			hint.hidden = false;
+			requestAnimationFrame(() => hint.classList.add("is-visible"));
+		};
+
+		const hide = () => {
+			if (!hint) return;
+			hint.classList.remove("is-visible");
+			hideTimer = window.setTimeout(() => {
+				if (!hint.classList.contains("is-visible")) {
+					hint.hidden = true;
+					hint.textContent = "";
+				}
+			}, 280);
+		};
+
+		links.forEach((link) => {
+			const tip = link.getAttribute("data-tip") ?? "";
+			link.addEventListener("mouseenter", () => show(tip));
+			link.addEventListener("mouseleave", hide);
+			link.addEventListener("focus", () => show(tip));
+			link.addEventListener("blur", hide);
+		});
+	}
+</script>
 
 <style>
 	.bio {
@@ -57,164 +90,50 @@ import { SITE_TITLE, SITE_DESCRIPTION, ZONES } from "../consts";
 		line-height: 1.7;
 	}
 	.motto-wrap {
-		position: relative;
+		margin-top: 28px;
 	}
 	.bio p.motto {
-		margin-top: 28px;
-		margin-bottom: 0;
+		margin: 0;
+		color: #333333;
 		font-size: 22px;
 		font-weight: 700;
 		letter-spacing: 2px;
 		line-height: 1.6;
 	}
-	.bio p.motto .motto-root {
+	.zone-link {
+		text-decoration: underline;
+		text-underline-offset: 4px;
+		text-decoration-thickness: 1.5px;
+		cursor: pointer;
+	}
+	.zone-link:hover {
+		text-decoration-thickness: 2px;
+	}
+	.zone-root {
 		color: #5c3d2e;
 	}
-	.bio p.motto .motto-sprout {
+	.zone-sprout {
 		color: #6fa84a;
 	}
-	.bio p.motto .motto-grow {
+	.zone-grow {
 		color: #3d9ad9;
 	}
-	.bio p.motto button.zone-link {
-		padding: 0;
-		border: 0;
-		background: none;
-		font: inherit;
-		letter-spacing: inherit;
-		cursor: pointer;
-		touch-action: manipulation;
-	}
-	.zone-box {
-		position: absolute;
-		z-index: 2;
-		top: 100%;
-		left: 0;
-		display: grid;
-		grid-template-rows: 0fr;
-		margin-top: 8px;
-		pointer-events: none;
-		transition: grid-template-rows 220ms ease, left 220ms ease;
-	}
-	.zone-box.is-open {
-		grid-template-rows: 1fr;
-		pointer-events: auto;
-	}
-	.zone-box-clip {
-		overflow: hidden;
-		min-height: 0;
-	}
-	.zone-box-panel {
-		width: max-content;
-		max-width: calc(100vw - 16px);
-		padding: 8px 10px;
-		border: 1px solid #e6e6e6;
-		background: #fff;
-		transform: translateY(-8px);
+	.zone-hint {
+		margin: 10px 0 0;
+		min-height: 1.6em;
+		color: #8d8d8d;
+		font-size: 15px;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+		line-height: 1.6;
 		opacity: 0;
-		transition: transform 220ms ease, opacity 220ms ease;
+		transform: translateY(-8px);
+		transition:
+			opacity 0.25s ease-out,
+			transform 0.25s ease-out;
 	}
-	.zone-box.is-open .zone-box-panel {
-		transform: none;
+	.zone-hint.is-visible {
 		opacity: 1;
-	}
-	.zone-box-line {
-		margin: 0 0 6px;
-		color: #555555;
-		font-size: 13px;
-		font-weight: 400;
-		letter-spacing: 0;
-		line-height: 1.4;
-		white-space: nowrap;
-	}
-	.zone-box-enter {
-		font-size: 13px;
-		font-weight: 400;
-		letter-spacing: 0;
-		line-height: 1.4;
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.zone-box,
-		.zone-box-panel {
-			transition: none;
-		}
+		transform: translateY(0);
 	}
 </style>
-
-<script>
-	const links = Array.from(document.querySelectorAll<HTMLButtonElement>("button.zone-link"));
-	const box = document.querySelector<HTMLElement>("#zone-box");
-	const line = box?.querySelector<HTMLElement>(".zone-box-line");
-	const enter = box?.querySelector<HTMLAnchorElement>(".zone-box-enter");
-
-	function place(link: HTMLButtonElement) {
-		if (!box) return;
-		const panel = box.querySelector<HTMLElement>(".zone-box-panel");
-		const wrap = box.parentElement;
-		if (!panel || !wrap) return;
-		const width = panel.offsetWidth;
-		const host = link.getBoundingClientRect();
-		const origin = wrap.getBoundingClientRect();
-		const margin = 8;
-		const viewW = document.documentElement.clientWidth;
-		const left = Math.min(
-			Math.max(host.left + (host.width - width) / 2, margin),
-			Math.max(margin, viewW - width - margin),
-		);
-		box.style.left = `${left - origin.left}px`;
-	}
-
-	function close() {
-		if (!box) return;
-		box.classList.remove("is-open");
-		box.inert = true;
-		for (const link of links) {
-			link.classList.remove("is-open");
-			link.setAttribute("aria-expanded", "false");
-		}
-	}
-
-	function open(link: HTMLButtonElement) {
-		if (!box || !line || !enter) return;
-		const slug = link.dataset.slug ?? "";
-		line.textContent = link.dataset.tip ?? "";
-		enter.href = `/${slug}/`;
-		const opening = !box.classList.contains("is-open");
-		if (opening) box.style.transition = "none";
-		place(link);
-		if (opening) {
-			box.getBoundingClientRect();
-			box.style.transition = "";
-		}
-		box.inert = false;
-		box.classList.add("is-open");
-		for (const item of links) {
-			const on = item === link;
-			item.classList.toggle("is-open", on);
-			item.setAttribute("aria-expanded", on ? "true" : "false");
-		}
-	}
-
-	for (const link of links) {
-		link.addEventListener("click", () => {
-			if (link.classList.contains("is-open")) close();
-			else open(link);
-		});
-	}
-
-	document.addEventListener("pointerdown", (event) => {
-		const target = event.target;
-		if (!(target instanceof Element)) return;
-		if (target.closest("button.zone-link") || target.closest("#zone-box")) return;
-		close();
-	});
-
-	document.addEventListener("keydown", (event) => {
-		if (event.key === "Escape") close();
-	});
-
-	window.addEventListener("resize", () => {
-		const openLink = links.find((link) => link.classList.contains("is-open"));
-		if (openLink) place(openLink);
-	});
-</script>
