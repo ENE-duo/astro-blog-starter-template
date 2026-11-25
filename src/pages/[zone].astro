@@ -8,6 +8,7 @@ export function getStaticPaths() {
 }
 
 const zone = ZONES.find((item) => item.slug === Astro.params.zone)!;
+const isSprout = zone.slug === "sprout";
 ---
 
 <!doctype html>
@@ -20,10 +21,90 @@ const zone = ZONES.find((item) => item.slug === Astro.params.zone)!;
 		<main class="zone">
 			<h1 style={`color: ${zone.accent}`}>{zone.title}</h1>
 			<p class="zone-desc">{zone.blurb}</p>
-			<p class="zone-empty">还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.</p>
+
+			{
+				isSprout ? (
+					<div class="sprout-board" data-section="work">
+						<div class="sprout-bar">
+							<div class="sprout-labels" aria-hidden="true">
+								<span class="sprout-label is-active" data-label="work">工作</span>
+								<span class="sprout-label" data-label="travel">旅途</span>
+							</div>
+							<div class="sprout-switch">
+								<button type="button" class="sprout-nav" data-dir="prev" aria-label="切换到工作">‹</button>
+								<button type="button" class="sprout-nav" data-dir="next" aria-label="切换到旅途">›</button>
+							</div>
+						</div>
+						<div class="sprout-viewport">
+							<div class="sprout-track">
+								<section class="sprout-pane" data-pane="work" aria-label="工作">
+									<p class="zone-empty">
+										还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.
+									</p>
+								</section>
+								<section class="sprout-pane" data-pane="travel" aria-label="旅途">
+									<p class="zone-empty">
+										还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.
+									</p>
+								</section>
+							</div>
+						</div>
+					</div>
+				) : (
+					<p class="zone-empty">
+						还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.
+					</p>
+				)
+			}
 		</main>
 	</body>
 </html>
+
+{
+	isSprout && (
+		<script>
+			const board = document.querySelector(".sprout-board");
+			if (board) {
+				const track = board.querySelector(".sprout-track");
+				const labels = board.querySelectorAll(".sprout-label");
+				const buttons = board.querySelectorAll(".sprout-nav");
+				const order = ["work", "travel"] as const;
+
+				const paint = (section: (typeof order)[number]) => {
+					board.setAttribute("data-section", section);
+					if (track instanceof HTMLElement) {
+						track.style.transform = `translateX(${section === "work" ? "0" : "-50%"})`;
+					}
+					labels.forEach((label) => {
+						label.classList.toggle("is-active", label.getAttribute("data-label") === section);
+					});
+					buttons.forEach((button) => {
+						const dir = button.getAttribute("data-dir");
+						const atStart = section === "work";
+						const atEnd = section === "travel";
+						if (dir === "prev") button.toggleAttribute("disabled", atStart);
+						if (dir === "next") button.toggleAttribute("disabled", atEnd);
+					});
+				};
+
+				const go = (dir: "prev" | "next") => {
+					const current = board.getAttribute("data-section") === "travel" ? 1 : 0;
+					const next = dir === "next" ? Math.min(current + 1, 1) : Math.max(current - 1, 0);
+					paint(order[next]);
+				};
+
+				buttons.forEach((button) => {
+					button.addEventListener("click", () => {
+						const dir = button.getAttribute("data-dir");
+						if (dir === "prev" || dir === "next") go(dir);
+					});
+				});
+
+				paint("work");
+			}
+		</script>
+	)
+}
 
 <style>
 	.zone h1 {
@@ -42,5 +123,70 @@ const zone = ZONES.find((item) => item.slug === Astro.params.zone)!;
 		margin: 0;
 		color: #8d8d8d;
 		font-size: 15px;
+	}
+	.sprout-board {
+		--sprout: #6fa84a;
+	}
+	.sprout-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin: 0 0 1rem;
+	}
+	.sprout-labels {
+		display: flex;
+		gap: 1.25rem;
+		color: #555555;
+		font-size: 16px;
+		line-height: 1.7;
+		user-select: none;
+		pointer-events: none;
+	}
+	.sprout-label.is-active {
+		color: var(--sprout);
+		font-weight: 650;
+	}
+	.sprout-switch {
+		display: flex;
+		gap: 0.35rem;
+	}
+	.sprout-nav {
+		width: 2rem;
+		height: 2rem;
+		padding: 0;
+		border: 0;
+		background: none;
+		color: var(--sprout);
+		font-size: 1.55rem;
+		line-height: 1;
+		cursor: pointer;
+	}
+	.sprout-nav:hover:not(:disabled) {
+		opacity: 0.72;
+	}
+	.sprout-nav:disabled {
+		opacity: 0.28;
+		cursor: default;
+	}
+	.sprout-viewport {
+		overflow: hidden;
+		width: 100%;
+	}
+	.sprout-track {
+		display: flex;
+		width: 200%;
+		transform: translateX(0);
+		transition: transform 0.36s ease;
+	}
+	.sprout-pane {
+		flex: 0 0 50%;
+		width: 50%;
+		min-width: 0;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.sprout-track {
+			transition: none;
+		}
 	}
 </style>
