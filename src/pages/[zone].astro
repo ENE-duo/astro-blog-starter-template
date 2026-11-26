@@ -43,42 +43,27 @@ const isSprout = zone.slug === "sprout";
 									<article class="chat-note">
 										<p>走过了大四，顶着双非的标签，在比赛里摸爬滚打攒了些成绩，如今在一家做低空经济的公司写着边缘 AI 算法。</p>
 										<p>建立这个博客，是为了记录我的人生成长。那些我熬夜学懂的知识，路上看过的风景，我都想写在这里。写给世界，更写给不敢懈怠的自己。</p>
-										<p class="chat-punch">因为，关于我在现实世界也要拿出真本事这回事！！！！ 我始终当真。</p>
+										<p>因为，关于我在现实世界也要拿出真本事这回事！！！！ 我始终当真。</p>
 
-										<hr class="chat-rule" />
-
-										<h2>动画</h2>
-										<p>看过无数动画片，感悟最深的是 <em>FLCL</em>、<em>来自深渊</em>。</p>
+										<h2><span class="chat-dot" aria-hidden="true"></span>动画</h2>
 										<p>
-											2026 年 11 月在回顾的是《飞天小女警 Z》：
+											看过无数动画片，感悟最深的是 FLCL、来自深渊。2026 年 11 月在回顾的是飞天小女警 Z：
 											<a
 												href="https://www.bilibili.com/video/BV1vLnq6JEjr/"
 												target="_blank"
-												rel="noopener noreferrer">Bilibili 传送门</a>
+												rel="noopener noreferrer">bilibili.com/video/BV1vLnq6JEjr</a>
 										</p>
 
-										<hr class="chat-rule" />
-
-										<h2>项目</h2>
-										<p class="chat-meta">2026 年 2 月 — 2026 年 12 月</p>
+										<h2><span class="chat-dot" aria-hidden="true"></span>项目</h2>
 										<p>
-											<strong>网捕无人机机载主视觉链路</strong>
-											<span class="chat-side">（感知层面）</span>
+											2026 年 2 月 — 2026 年 12 月，网捕无人机机载主视觉链路（感知层面）：从数据采集 / 标注 → 模型架构融合 → 模型训练 → 端侧部署推理 → 端侧性能优化 → 跟踪算法。
 										</p>
-										<ol class="chat-flow">
-											<li>数据采集 / 标注</li>
-											<li>模型架构融合</li>
-											<li>模型训练</li>
-											<li>端侧部署推理</li>
-											<li>端侧性能优化</li>
-											<li>跟踪算法</li>
-										</ol>
-										<p class="chat-meta">小红书相关视频</p>
 										<p>
+											小红书相关视频：
 											<a
 												href="https://www.xiaohongshu.com/discovery/item/68c946c1000000001300e096?source=webshare&xhsshare=pc_web&xsec_token=ABPSrG_xshdoRohmujqtZh2EAmQJlm8cm7XGhSbNHpXRA=&xsec_source=pc_share"
 												target="_blank"
-												rel="noopener noreferrer">全自动拦截？它出手的那一刻，太快了 — 重隼智能科技</a>
+												rel="noopener noreferrer">xiaohongshu.com/discovery/item/68c946c1000000001300e096</a>
 										</p>
 									</article>
 								</section>
@@ -240,39 +225,25 @@ const isSprout = zone.slug === "sprout";
 		line-height: 1.85;
 	}
 	.chat-note p {
-		margin: 0 0 0.95rem;
-	}
-	.chat-punch {
-		color: #2c2c2c;
-	}
-	.chat-rule {
-		margin: 1.35rem 0 1.1rem;
-		border: 0;
-		border-top: 1px solid #eeeeee;
+		margin: 0 0 1.05rem;
 	}
 	.chat-note h2 {
-		margin: 0 0 0.7rem;
-		color: var(--sprout);
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		margin: 1.55rem 0 0.65rem;
+		color: #2c2c2c;
 		font-size: 1.05rem;
-		font-weight: 650;
-		letter-spacing: 0.04em;
+		font-weight: 700;
+		letter-spacing: 0.02em;
 	}
-	.chat-meta {
-		color: #8d8d8d;
-		font-size: 14px;
-	}
-	.chat-side {
-		margin-left: 0.25rem;
-		color: #8d8d8d;
-		font-size: 0.92em;
-	}
-	.chat-flow {
-		margin: 0.35rem 0 1.1rem;
-		padding-left: 1.2rem;
-		color: #555555;
-	}
-	.chat-flow li {
-		margin: 0.2rem 0;
+	.chat-dot {
+		display: inline-block;
+		width: 0.42rem;
+		height: 0.42rem;
+		border-radius: 50%;
+		background: var(--sprout);
+		flex: none;
 	}
 	.chat-note a {
 		color: var(--sprout);
@@ -282,10 +253,6 @@ const isSprout = zone.slug === "sprout";
 	}
 	.chat-note a:hover {
 		opacity: 0.78;
-	}
-	.chat-note em {
-		font-style: normal;
-		color: #2c2c2c;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.sprout-track {
