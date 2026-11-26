@@ -23,7 +23,7 @@ const isSprout = zone.slug === "sprout";
 				<h1 style={`color: ${zone.accent}`}>{zone.title}</h1>
 				<a class="zone-return" href="/" style={`color: ${zone.accent}`}>← return</a>
 			</div>
-			<p class="zone-desc" set:html={zone.blurb.replaceAll(".", '<span class="en-dot">.</span>')}></p>
+			<p class="zone-desc">{zone.blurb}</p>
 			{isSprout && <hr class="zone-rule" />}
 
 			{
@@ -44,13 +44,13 @@ const isSprout = zone.slug === "sprout";
 							<div class="sprout-track">
 								<section class="sprout-pane" data-pane="chat" aria-label="唠唠嗑">
 									<article class="chat-note">
-										<p>走过了大四，顶着双非的标签，在比赛里摸爬滚打攒了些成绩，如今在一家做低空经济的公司写着边缘 AI 算法<span class="en-dot">.</span></p>
-										<p>建立这个博客，是为了记录我的人生成长<span class="en-dot">.</span>那些我熬夜学懂的知识，路上看过的风景，我都想写在这里<span class="en-dot">.</span>写给世界，更写给不敢懈怠的自己<span class="en-dot">.</span></p>
-										<p>因为，关于我在现实世界也要拿出真本事这回事！！！！ 我始终当真<span class="en-dot">.</span></p>
+										<p>走过了大四，顶着双非的标签，在比赛里摸爬滚打攒了些成绩，如今在一家做低空经济的公司写着边缘 AI 算法.</p>
+										<p>建立这个博客，是为了记录我的人生成长.那些我熬夜学懂的知识，路上看过的风景，我都想写在这里.写给世界，更写给不敢懈怠的自己.</p>
+										<p>因为，关于我在现实世界也要拿出真本事这回事！！！！ 我始终当真.</p>
 
 										<h2><span class="chat-dot" aria-hidden="true"></span>动画</h2>
 										<p>
-											看过无数动画片，感悟最深的是 FLCL、来自深渊<span class="en-dot">.</span>2026 年 11 月在回顾的是飞天小女警 Z：
+											看过无数动画片，感悟最深的是 FLCL、来自深渊.2026 年 11 月在回顾的是飞天小女警 Z：
 											<a
 												href="https://www.bilibili.com/video/BV1vLnq6JEjr/"
 												target="_blank"
@@ -59,7 +59,7 @@ const isSprout = zone.slug === "sprout";
 
 										<h2><span class="chat-dot" aria-hidden="true"></span>项目</h2>
 										<p>
-											2026 年 2 月 — 2026 年 12 月，网捕无人机机载主视觉链路（感知层面）：从数据采集 / 标注 → 模型架构融合 → 模型训练 → 端侧部署推理 → 端侧性能优化 → 跟踪算法<span class="en-dot">.</span>
+											2026 年 2 月 — 2026 年 12 月，网捕无人机机载主视觉链路（感知层面）：从数据采集 / 标注 → 模型架构融合 → 模型训练 → 端侧部署推理 → 端侧性能优化 → 跟踪算法.
 										</p>
 										<p>
 											小红书相关视频：
@@ -170,10 +170,6 @@ const isSprout = zone.slug === "sprout";
 		font-size: 18px;
 		line-height: 1.85;
 	}
-	.en-dot {
-		font-family: "Times New Roman", "Georgia", "Noto Serif", serif;
-		font-style: normal;
-	}
 	.zone-rule {
 		margin: 0 0 1.15rem;
 		border: 0;
@@ -249,10 +245,6 @@ const isSprout = zone.slug === "sprout";
 		color: #444444;
 		font-size: 18px;
 		line-height: 1.9;
-	}
-	.en-dot {
-		font-family: "Times New Roman", "Georgia", "Noto Serif", serif;
-		font-style: normal;
 	}
 	.chat-note p {
 		margin: 0 0 1.25rem;
