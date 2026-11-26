@@ -30,12 +30,6 @@
 	font-style: normal;
 	font-display: swap;
 }
-html.fonts-loading body {
-	visibility: hidden;
-}
-html.fonts-ready body {
-	visibility: visible;
-}
 body {
 	font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 	margin: 0;
