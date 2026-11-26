@@ -50,9 +50,8 @@ const isSprout = zone.slug === "sprout";
 
 										<h2><span class="chat-dot" aria-hidden="true"></span>动画</h2>
 										<p>看过无数动画片，感悟最深的是 FLCL、来自深渊.</p>
-										<p>2026 年 11 月在回顾的是飞天小女警 Z：</p>
 										<p>
-											<a
+											2026 年 11 月在回顾的是飞天小女警 Z：<a
 												class="chat-link"
 												href="https://www.bilibili.com/video/BV1vLnq6JEjr/"
 												target="_blank"
@@ -63,9 +62,8 @@ const isSprout = zone.slug === "sprout";
 										<p>
 											2026 年 2 月 — 2026 年 12 月，网捕无人机机载主视觉链路（感知层面）：从数据采集 / 标注 → 模型架构融合 → 模型训练 → 端侧部署推理 → 端侧性能优化 → 跟踪算法.
 										</p>
-										<p>小红书相关视频：</p>
 										<p>
-											<a
+											小红书相关视频：<a
 												class="chat-link"
 												href="https://www.xiaohongshu.com/discovery/item/68c946c1000000001300e096?source=webshare&xhsshare=pc_web&xsec_token=ABPSrG_xshdoRohmujqtZh2EAmQJlm8cm7XGhSbNHpXRA=&xsec_source=pc_share"
 												target="_blank"
@@ -151,17 +149,17 @@ const isSprout = zone.slug === "sprout";
 	}
 	.zone h1 {
 		margin: 0;
-		font-size: 1.75rem;
+		font-size: 1.15em;
 		font-weight: 700;
-		letter-spacing: 1px;
+		letter-spacing: 0.02em;
 	}
 	.zone-return {
 		flex: none;
-		font-size: 20px;
-		line-height: 1.5;
+		font-size: 0.8em;
+		line-height: 1.75;
 		text-decoration: underline;
 		text-decoration-skip-ink: none;
-		text-underline-offset: 7px;
+		text-underline-offset: 0.35em;
 		text-decoration-thickness: 1.5px;
 	}
 	.zone-return:hover {
@@ -169,9 +167,9 @@ const isSprout = zone.slug === "sprout";
 	}
 	.zone-desc {
 		margin: 0 0 1.5rem;
-		color: #555555;
-		font-size: 18px;
-		line-height: 1.85;
+		color: #767676;
+		font-size: 1em;
+		line-height: 1.75;
 	}
 	.zone-rule {
 		margin: 0 0 1.15rem;
@@ -180,8 +178,8 @@ const isSprout = zone.slug === "sprout";
 	}
 	.zone-empty {
 		margin: 0;
-		color: #8d8d8d;
-		font-size: 16px;
+		color: #767676;
+		font-size: 1em;
 	}
 	.sprout-board {
 		--sprout: #6fa84a;
@@ -195,10 +193,10 @@ const isSprout = zone.slug === "sprout";
 	}
 	.sprout-labels {
 		display: flex;
-		gap: 1.4rem;
+		gap: 1.25rem;
 		color: #555555;
-		font-size: 18px;
-		line-height: 1.6;
+		font-size: 1em;
+		line-height: 1.75;
 		user-select: none;
 		pointer-events: none;
 	}
@@ -245,20 +243,20 @@ const isSprout = zone.slug === "sprout";
 		box-sizing: border-box;
 	}
 	.chat-note {
-		color: #444444;
-		font-size: 18px;
-		line-height: 1.9;
+		color: #2f3030;
+		font-size: 1em;
+		line-height: 1.75;
 	}
 	.chat-note p {
-		margin: 0 0 1.25rem;
+		margin: 0 0 1.5em;
 	}
 	.chat-note h2 {
 		display: flex;
 		align-items: center;
 		gap: 0.55rem;
-		margin: 1.7rem 0 0.75rem;
-		color: #2c2c2c;
-		font-size: 1.15rem;
+		margin: 2.5em 0 1em;
+		color: #2f3030;
+		font-size: 1.1em;
 		font-weight: 700;
 		letter-spacing: 0.02em;
 	}
@@ -274,12 +272,8 @@ const isSprout = zone.slug === "sprout";
 		color: var(--sprout);
 		text-decoration: underline;
 		text-decoration-skip-ink: none;
-		text-underline-offset: 7px;
+		text-underline-offset: 0.35em;
 		text-decoration-thickness: 1.5px;
-	}
-	.chat-note a.chat-link {
-		display: inline-block;
-		max-width: 100%;
 		overflow-wrap: anywhere;
 		word-break: break-all;
 	}
