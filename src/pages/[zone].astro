@@ -25,19 +25,25 @@ const isSprout = zone.slug === "sprout";
 
 			{
 				isSprout ? (
-					<div class="sprout-board" data-section="work">
+					<div class="sprout-board" data-section="chat">
 						<div class="sprout-bar">
 							<div class="sprout-labels" aria-hidden="true">
-								<span class="sprout-label is-active" data-label="work">工作</span>
+								<span class="sprout-label is-active" data-label="chat">唠唠嗑</span>
+								<span class="sprout-label" data-label="work">工作</span>
 								<span class="sprout-label" data-label="travel">旅途</span>
 							</div>
 							<div class="sprout-switch">
-								<button type="button" class="sprout-nav" data-dir="prev" aria-label="切换到工作">‹</button>
-								<button type="button" class="sprout-nav" data-dir="next" aria-label="切换到旅途">›</button>
+								<button type="button" class="sprout-nav" data-dir="prev" aria-label="上一个板块">‹</button>
+								<button type="button" class="sprout-nav" data-dir="next" aria-label="下一个板块">›</button>
 							</div>
 						</div>
 						<div class="sprout-viewport">
 							<div class="sprout-track">
+								<section class="sprout-pane" data-pane="chat" aria-label="唠唠嗑">
+									<p class="zone-empty">
+										还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.
+									</p>
+								</section>
 								<section class="sprout-pane" data-pane="work" aria-label="工作">
 									<p class="zone-empty">
 										还没有文章，先从<a href="/" style={`color: ${zone.accent}`}>首页</a>继续.
@@ -69,28 +75,27 @@ const isSprout = zone.slug === "sprout";
 				const track = board.querySelector(".sprout-track");
 				const labels = board.querySelectorAll(".sprout-label");
 				const buttons = board.querySelectorAll(".sprout-nav");
-				const order = ["work", "travel"] as const;
+				const order = ["chat", "work", "travel"] as const;
 
 				const paint = (section: (typeof order)[number]) => {
+					const index = order.indexOf(section);
 					board.setAttribute("data-section", section);
 					if (track instanceof HTMLElement) {
-						track.style.transform = `translateX(${section === "work" ? "0" : "-50%"})`;
+						track.style.transform = `translateX(-${(index * 100) / order.length}%)`;
 					}
 					labels.forEach((label) => {
 						label.classList.toggle("is-active", label.getAttribute("data-label") === section);
 					});
 					buttons.forEach((button) => {
 						const dir = button.getAttribute("data-dir");
-						const atStart = section === "work";
-						const atEnd = section === "travel";
-						if (dir === "prev") button.toggleAttribute("disabled", atStart);
-						if (dir === "next") button.toggleAttribute("disabled", atEnd);
+						if (dir === "prev") button.toggleAttribute("disabled", index === 0);
+						if (dir === "next") button.toggleAttribute("disabled", index === order.length - 1);
 					});
 				};
 
 				const go = (dir: "prev" | "next") => {
-					const current = board.getAttribute("data-section") === "travel" ? 1 : 0;
-					const next = dir === "next" ? Math.min(current + 1, 1) : Math.max(current - 1, 0);
+					const current = Math.max(0, order.indexOf(board.getAttribute("data-section") as (typeof order)[number]));
+					const next = dir === "next" ? Math.min(current + 1, order.length - 1) : Math.max(current - 1, 0);
 					paint(order[next]);
 				};
 
@@ -101,7 +106,7 @@ const isSprout = zone.slug === "sprout";
 					});
 				});
 
-				paint("work");
+				paint("chat");
 			}
 		</script>
 	)
@@ -180,13 +185,13 @@ const isSprout = zone.slug === "sprout";
 	}
 	.sprout-track {
 		display: flex;
-		width: 200%;
+		width: 300%;
 		transform: translateX(0);
 		transition: transform 0.36s ease;
 	}
 	.sprout-pane {
-		flex: 0 0 50%;
-		width: 50%;
+		flex: 0 0 calc(100% / 3);
+		width: calc(100% / 3);
 		min-width: 0;
 	}
 	@media (prefers-reduced-motion: reduce) {
