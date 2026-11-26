@@ -78,7 +78,7 @@ const [root, sprout, grow] = ZONES;
 	.bio {
 		position: relative;
 		z-index: 1;
-		width: 600px;
+		width: min(var(--page-width), calc(100% - 2 * var(--page-gutter)));
 		font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 	}
 	.lead {
