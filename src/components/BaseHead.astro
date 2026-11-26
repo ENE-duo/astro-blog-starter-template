@@ -19,12 +19,43 @@ const { title, description, image = "/avatar.jpg" } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/jpeg" href="/avatar.jpg" />
 <link rel="preconnect" href="https://cdn.jsdmirror.com" crossorigin />
+<link
+	rel="preload"
+	href="https://cdn.jsdmirror.com/npm/@wc1font/lxgw-wen-kai-screen/L1_7684_256.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin
+/>
 <link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@wc1font/lxgw-wen-kai-screen/font.css" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
 <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
 <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+
+<script is:inline>
+	(() => {
+		const root = document.documentElement;
+		root.classList.add("fonts-loading");
+		const ready = () => {
+			root.classList.remove("fonts-loading");
+			root.classList.add("fonts-ready");
+		};
+		if (!document.fonts) {
+			ready();
+			return;
+		}
+		const sample =
+			"dwoduo 我是一个在代码里种树的人 白天模型端侧 种子扎根发芽野蛮生长 Take root sprout grow 工作旅途学术探索";
+		const waitFonts = Promise.all([
+			document.fonts.load('16px "LXGW WenKai Screen"', sample),
+			document.fonts.load('700 22px "LXGW WenKai Screen"', sample),
+			document.fonts.ready,
+		]);
+		const timeout = new Promise((resolve) => window.setTimeout(resolve, 1800));
+		Promise.race([waitFonts, timeout]).then(ready);
+	})();
+</script>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
