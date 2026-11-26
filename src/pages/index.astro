@@ -14,11 +14,11 @@ const [root, sprout, grow] = ZONES;
 	<body>
 		<Header />
 		<main class="bio">
-			<p class="lead">Hi，我是 dwoduo. 一个在代码里种树的人.</p>
-			<p>白天，把模型塞进小小的端侧；闲暇，把日子揉进几行代码.</p>
-			<p>心里有很多还没成型的念头，和一个模糊的梦.它们像种子一样，正埋在土里.</p>
-			<p>所以，我会把做过的项目、走过的路，还有一些碎碎念，一点点搬到这里.</p>
-			<p>然后一边记录，一边等它们扎根，发芽，野蛮生长.</p>
+			<p class="lead">Hi，我是 dwoduo<span class="en-dot">.</span> 一个在代码里种树的人<span class="en-dot">.</span></p>
+			<p>白天，把模型塞进小小的端侧；闲暇，把日子揉进几行代码<span class="en-dot">.</span></p>
+			<p>心里有很多还没成型的念头，和一个模糊的梦<span class="en-dot">.</span>它们像种子一样，正埋在土里<span class="en-dot">.</span></p>
+			<p>所以，我会把做过的项目、走过的路，还有一些碎碎念，一点点搬到这里<span class="en-dot">.</span></p>
+			<p>然后一边记录，一边等它们扎根，发芽，野蛮生长<span class="en-dot">.</span></p>
 			<div class="motto-wrap">
 				<p class="motto">
 					Take <a class="zone-link zone-root" href="/root/" data-tip={root.tip} title={root.tip}>root</a>,<a
@@ -80,6 +80,10 @@ const [root, sprout, grow] = ZONES;
 		z-index: 1;
 		width: min(var(--page-width), calc(100% - 2 * var(--page-gutter)));
 		font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+	}
+	.en-dot {
+		font-family: "Times New Roman", "Georgia", "Noto Serif", serif;
+		font-style: normal;
 	}
 	.lead {
 		margin-bottom: 0;
