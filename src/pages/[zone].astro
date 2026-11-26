@@ -49,9 +49,11 @@ const isSprout = zone.slug === "sprout";
 										<p>因为，关于我在现实世界也要拿出真本事这回事！！！！ 我始终当真.</p>
 
 										<h2><span class="chat-dot" aria-hidden="true"></span>动画</h2>
+										<p>看过无数动画片，感悟最深的是 FLCL、来自深渊.</p>
+										<p>2026 年 11 月在回顾的是飞天小女警 Z：</p>
 										<p>
-											看过无数动画片，感悟最深的是 FLCL、来自深渊.2026 年 11 月在回顾的是飞天小女警 Z：
 											<a
+												class="chat-link"
 												href="https://www.bilibili.com/video/BV1vLnq6JEjr/"
 												target="_blank"
 												rel="noopener noreferrer">bilibili.com/video/BV1vLnq6JEjr</a>
@@ -61,9 +63,10 @@ const isSprout = zone.slug === "sprout";
 										<p>
 											2026 年 2 月 — 2026 年 12 月，网捕无人机机载主视觉链路（感知层面）：从数据采集 / 标注 → 模型架构融合 → 模型训练 → 端侧部署推理 → 端侧性能优化 → 跟踪算法.
 										</p>
+										<p>小红书相关视频：</p>
 										<p>
-											小红书相关视频：
 											<a
+												class="chat-link"
 												href="https://www.xiaohongshu.com/discovery/item/68c946c1000000001300e096?source=webshare&xhsshare=pc_web&xsec_token=ABPSrG_xshdoRohmujqtZh2EAmQJlm8cm7XGhSbNHpXRA=&xsec_source=pc_share"
 												target="_blank"
 												rel="noopener noreferrer">xiaohongshu.com/discovery/item/68c946c1000000001300e096</a>
@@ -273,6 +276,11 @@ const isSprout = zone.slug === "sprout";
 		text-decoration-skip-ink: none;
 		text-underline-offset: 7px;
 		text-decoration-thickness: 1.5px;
+	}
+	.chat-note a.chat-link {
+		display: inline-block;
+		max-width: 100%;
+		overflow-wrap: anywhere;
 		word-break: break-all;
 	}
 	.chat-note a:hover {

@@ -32,6 +32,15 @@
 	font-style: normal;
 	font-display: swap;
 }
+/* LXGW draws ASCII "." as a centered CJK-like dot; force Latin punctuation glyphs. */
+@font-face {
+	font-family: "LXGW WenKai Screen";
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: local("Segoe UI"), local("Arial"), local("Helvetica Neue"), local("Helvetica");
+	unicode-range: U+002E, U+002C, U+003A, U+003B, U+0021, U+003F;
+}
 body {
 	font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 	margin: 0;
