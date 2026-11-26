@@ -9,6 +9,7 @@ export function getStaticPaths() {
 
 const zone = ZONES.find((item) => item.slug === Astro.params.zone)!;
 const isSprout = zone.slug === "sprout";
+const sproutAccent = ZONES.find((item) => item.slug === "sprout")!.accent;
 ---
 
 <!doctype html>
@@ -139,7 +140,7 @@ const isSprout = zone.slug === "sprout";
 	)
 }
 
-<style>
+<style define:vars={{ sproutAccent }}>
 	.zone-head {
 		display: flex;
 		align-items: baseline;
@@ -182,7 +183,7 @@ const isSprout = zone.slug === "sprout";
 		font-size: 1em;
 	}
 	.sprout-board {
-		--sprout: #6fa84a;
+		--sprout: var(--sproutAccent);
 	}
 	.sprout-bar {
 		display: flex;

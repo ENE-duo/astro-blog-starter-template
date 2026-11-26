@@ -74,7 +74,7 @@ const [root, sprout, grow] = ZONES;
 	}
 </script>
 
-<style>
+<style define:vars={{ rootAccent: root.accent, sproutAccent: sprout.accent, growAccent: grow.accent }}>
 	.bio {
 		position: relative;
 		z-index: 1;
@@ -115,13 +115,13 @@ const [root, sprout, grow] = ZONES;
 		text-decoration-thickness: 2px;
 	}
 	.zone-root {
-		color: #5c3d2e;
+		color: var(--rootAccent);
 	}
 	.zone-sprout {
-		color: #6fa84a;
+		color: var(--sproutAccent);
 	}
 	.zone-grow {
-		color: #3d9ad9;
+		color: var(--growAccent);
 	}
 	.zone-hint {
 		margin: 0;
@@ -147,12 +147,12 @@ const [root, sprout, grow] = ZONES;
 		transform: translateY(0);
 	}
 	.bio p.zone-hint.zone-root {
-		color: #5c3d2e;
+		color: var(--rootAccent);
 	}
 	.bio p.zone-hint.zone-sprout {
-		color: #6fa84a;
+		color: var(--sproutAccent);
 	}
 	.bio p.zone-hint.zone-grow {
-		color: #3d9ad9;
+		color: var(--growAccent);
 	}
 </style>
