@@ -19,7 +19,10 @@ const isSprout = zone.slug === "sprout";
 	<body>
 		<Header />
 		<main class="zone">
-			<h1 style={`color: ${zone.accent}`}>{zone.title}</h1>
+			<div class="zone-head">
+				<h1 style={`color: ${zone.accent}`}>{zone.title}</h1>
+				<a class="zone-return" href="/" style={`color: ${zone.accent}`}>← return</a>
+			</div>
 			<p class="zone-desc">{zone.blurb}</p>
 			{isSprout && <hr class="zone-rule" />}
 
@@ -136,11 +139,28 @@ const isSprout = zone.slug === "sprout";
 }
 
 <style>
-	.zone h1 {
+	.zone-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
 		margin: 0 0 0.75rem;
+	}
+	.zone h1 {
+		margin: 0;
 		font-size: 1.75rem;
 		font-weight: 700;
 		letter-spacing: 1px;
+	}
+	.zone-return {
+		flex: none;
+		font-size: 15px;
+		line-height: 1.4;
+		text-decoration: none;
+	}
+	.zone-return:hover {
+		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 	.zone-desc {
 		margin: 0 0 1.25rem;
