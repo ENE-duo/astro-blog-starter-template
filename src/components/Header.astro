@@ -1,9 +1,15 @@
 ---
+interface Props {
+	size?: "home" | "default";
+}
+
+const { size = "default" } = Astro.props;
+const isHome = size === "home";
 ---
 
 <header>
-	<a class="identity" href="/">
-		<img src="/avatar.jpg" alt="" width="60" height="60" />
+	<a class:list={["identity", isHome && "is-home"]} href="/">
+		<img src="/avatar.jpg" alt="" width={isHome ? 96 : 60} height={isHome ? 96 : 60} />
 		<span>
 			<strong>dwoduo</strong>
 			<small>嵌入式 AI 算法 · 端侧性能优化</small>
@@ -51,5 +57,20 @@
 		color: #767676;
 		font-size: 0.85em;
 		line-height: 1.4;
+	}
+	.identity.is-home {
+		gap: 1.05rem;
+	}
+	.identity.is-home img {
+		width: 96px;
+		height: 96px;
+	}
+	.identity.is-home strong {
+		font-size: 32px;
+	}
+	.identity.is-home small {
+		margin-top: 0.2rem;
+		color: #8d8d8d;
+		font-size: 18px;
 	}
 </style>

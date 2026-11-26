@@ -12,7 +12,7 @@ const [root, sprout, grow] = ZONES;
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
+		<Header size="home" />
 		<main class="bio">
 			<p class="lead">Hi，我是 dwoduo. 一个在代码里种树的人.</p>
 			<p>白天，把模型塞进小小的端侧；闲暇，把日子揉进几行代码.</p>
@@ -83,31 +83,31 @@ const [root, sprout, grow] = ZONES;
 	}
 	.lead {
 		margin-bottom: 0;
-		color: #2f3030;
-		font-size: 1em;
-		line-height: 1.75;
+		color: #333333;
+		font-size: 20px;
+		line-height: 1.85;
 	}
 	.bio p {
-		margin-bottom: 1.5em;
+		margin-bottom: 16px;
 		color: #555555;
-		font-size: 1em;
-		line-height: 1.75;
+		font-size: 18px;
+		line-height: 1.85;
 	}
 	.motto-wrap {
-		margin-top: 1.75em;
+		margin-top: 28px;
 	}
 	.bio p.motto {
 		margin: 0;
-		color: #2f3030;
-		font-size: 1.15em;
+		color: #333333;
+		font-size: 24px;
 		font-weight: 700;
-		letter-spacing: 0.06em;
+		letter-spacing: 2px;
 		line-height: 1.75;
 	}
 	.zone-link {
 		text-decoration: underline;
 		text-decoration-skip-ink: none;
-		text-underline-offset: 0.35em;
+		text-underline-offset: 8px;
 		text-decoration-thickness: 1.5px;
 		cursor: pointer;
 	}
@@ -127,11 +127,11 @@ const [root, sprout, grow] = ZONES;
 		margin: 0;
 		max-height: 0;
 		overflow: hidden;
-		color: #767676;
-		font-size: 0.9em;
+		color: #8d8d8d;
+		font-size: 15px;
 		font-weight: 400;
-		letter-spacing: 0.02em;
-		line-height: 1.75;
+		letter-spacing: 0.5px;
+		line-height: 1.6;
 		opacity: 0;
 		transform: translateY(-6px);
 		transition:
